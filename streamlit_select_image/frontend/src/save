@@ -1,0 +1,63 @@
+import {
+  Streamlit,
+  withStreamlitConnection,
+} from "streamlit-component-lib"
+import React, { ComponentProps, useEffect, useState } from "react"
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from "@mui/material/Select"
+import { Box, FormControl, InputLabel } from "@mui/material"
+
+const SelectImage = (props: ComponentProps<any>) => {
+  const options = props.args["options"];
+  const images = props.args["images"];
+  const back = [];
+  for (let i = 0; i < options.length; i ++) {
+    back.push({option: options[i], image: images[i]});
+  }
+  const [value, setValue] = useState(options[0]);
+  useEffect(() => Streamlit.setFrameHeight(150));
+
+  function handleChange(event: SelectChangeEvent) {
+    setValue(event.target.value);
+    Streamlit.setComponentValue(event.target.value as string);
+  }
+  if (props.args["label"] !== "") {
+    return (
+      <Box sx={{ minWidth: 50 , marginTop: 2}}>
+        <FormControl fullWidth>
+          <InputLabel id="image-select-label">{props.args["label"]}</InputLabel>
+          <Select
+            labelId="image-select-label"
+            id="image-select"
+            value={value}
+            label="Image"
+            onChange={handleChange}
+          >
+            {back.map((data) => (
+              <MenuItem value={data.option}><img alt={data.option} src={data.image} height={"100px"} width={"100px"}/></MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+    );
+  } else {
+    return (
+      <Box sx={{ minWidth: 50 , marginTop: 2}}>
+        <FormControl fullWidth>
+          <Select
+            labelId="image-select-label"
+            id="image-select"
+            value={value}
+            onChange={handleChange}
+          >
+            {back.map((data) => (
+              <MenuItem value={data.option}><img alt={data.option} src={data.image} height={"100px"} width={"100px"}/></MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+    );
+  }
+}
+
+export default withStreamlitConnection(SelectImage)
