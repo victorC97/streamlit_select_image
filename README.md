@@ -4,7 +4,7 @@
 
 Clone project or pip install the package :
 
-```pip install streamlit_select_image```
+```pip install streamlit-streamlit-select-image```
 
 ## Example
 
@@ -32,4 +32,4 @@ It might be some irregularity (I'm not really front end developer unfortunately)
 
 ## Render
 
-<img width="724" alt="Capture d’écran 2023-01-03 à 00 34 26" src="https://user-images.githubusercontent.com/75739506/210276047-86820992-f1e6-4832-8367-81ef7b3ce1df.png">
+<img width="724" alt="Capture d’écran 2023-01-03 à 00 34 26" src="https://user-images.githubusercontent.com/75739506/210276047-86820992-f1e6-4832-8367-81ef7b3ce1df.png">
