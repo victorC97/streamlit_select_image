@@ -1,14 +1,14 @@
 import setuptools
 
 setuptools.setup(
-    name="streamlit-streamlit_select_image",
+    name="streamlit_select_image",
     version="0.0.1",
-    author="",
-    author_email="",
-    description="",
-    long_description="",
+    author="victorC97",
+    author_email="victor.cour@telecomnancy.net",
+    description="Simple Streamlit MUI Select with images.",
+    long_description="Adaptation of the MUI Select component but instead of plain text MuiItems, it's images.",
     long_description_content_type="text/plain",
-    url="",
+    url="https://github.com/victorC97/streamlit_select_image",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[],

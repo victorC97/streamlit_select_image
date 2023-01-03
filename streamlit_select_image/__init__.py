@@ -20,11 +20,11 @@ else:
     )
 
 
-def st_select_image(options, label="", key=None):
+def st_select_image(options, label="", no_choice=False, key=None):
     images = []
     for option in options:
         with open(option, 'rb') as file:
             enc = base64.b64encode(file.read()).decode()
             images.append(f"data:image/png;base64, {enc}")
-    image = _select_image(label=label, options=options, images=images, default=options[0], key=key)
+    image = _select_image(label=label, options=options, images=images, no_choice=no_choice, default=options[0], key=key)
     return image

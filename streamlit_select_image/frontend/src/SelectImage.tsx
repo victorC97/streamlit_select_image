@@ -5,7 +5,8 @@ import {
 import React from "react";
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from "@mui/material/Select"
-import { Box, CardMedia, FormControl, InputLabel } from "@mui/material"
+import { Box, FormControl, InputLabel } from "@mui/material"
+import nothing from "./nothing.png";
 
 class SelectImage extends StreamlitComponentBase {
 
@@ -25,55 +26,122 @@ class SelectImage extends StreamlitComponentBase {
     this.setState((prev, state) => ({
       value: event.target.value
     }),
-      () => Streamlit.setComponentValue(this.state.value)
+      () => {
+        if (event.target.value === ".nothing") {
+          Streamlit.setComponentValue("")
+        } else {
+          Streamlit.setComponentValue(this.state.value)
+        }
+      }
     )
   }
 
   render = () => {
     if (this.props.args["label"] !== "") {
-      return (
-        <Box sx={{minHeight: 200, marginTop: 2}}>
-          <FormControl fullWidth>
-            <InputLabel id="image-select-label">{this.props.args["label"]}</InputLabel>
-            <Select
-              labelId="image-select-label"
-              id="image-select"
-              value={this.state.value}
-              label="Image"
-              onChange={this.handleChange}
-              autoWidth
-              sx={{ maxHeight: 150, maxWidth: 150}}
-            >
-              {this.state.back.map(({ image, option }) => (
+      if (this.props.args["no_choice"] === true) {
+        return (
+          <Box sx={{ minHeight: 200, marginTop: 2 }}>
+            <FormControl fullWidth>
+              <InputLabel id="image-select-label">{this.props.args["label"]}</InputLabel>
+              <Select
+                labelId="image-select-label"
+                id="image-select"
+                value={this.state.value}
+                label="Image"
+                onChange={this.handleChange}
+                autoWidth
+                sx={{ maxHeight: 150, maxWidth: 150 }}
+              >
+                {this.state.back.map(({ image, option }) => (
+                  <MenuItem
+                    value={option}
+                    key={option}
+                    sx={{ paddingLeft: 0, maxHeight: 150, maxWidth: 150 }}
+                  >
+                    <img alt={option} src={image} height={"100%"} width={"100%"} />
+                  </MenuItem>
+                ))}
                 <MenuItem
-                  value={option}
-                  key={option}
-                  sx={{paddingLeft: 0, maxHeight: 150, maxWidth: 150}}
+                  value={".nothing"}
+                  key={".no_choice"}
+                  sx={{ paddingLeft: 0, maxHeight: 150, maxWidth: 150 }}
                 >
-                  <img alt={option} src={image} height={"100%"} width={"100%"}/>
+                  <img alt={".nothing"} src={nothing} height={"100%"} width={"100%"} />
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      );
+              </Select>
+            </FormControl>
+          </Box>
+        );
+      } else {
+        return (
+          <Box sx={{minHeight: 200, marginTop: 2}}>
+            <FormControl fullWidth>
+              <InputLabel id="image-select-label">{this.props.args["label"]}</InputLabel>
+              <Select
+                labelId="image-select-label"
+                id="image-select"
+                value={this.state.value}
+                label="Image"
+                onChange={this.handleChange}
+                autoWidth
+                sx={{ maxHeight: 150, maxWidth: 150}}
+              >
+                {this.state.back.map(({ image, option }) => (
+                  <MenuItem
+                    value={option}
+                    key={option}
+                    sx={{paddingLeft: 0, maxHeight: 150, maxWidth: 150}}
+                  >
+                    <img alt={option} src={image} height={"100%"} width={"100%"}/>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        );
+      }
     } else {
-      return (
-        <Box sx={{minHeight: 200, marginTop: 2}}>
-          <FormControl fullWidth>
-            <Select
-              labelId="image-select-label"
-              id="image-select"
-              value={this.state.value}
-              onChange={this.handleChange}
-            >
-              {this.state.back.map(({ image, option }) => (
-                <MenuItem sx={{justifyContent: "flex-end"}} value={option}><img alt={option} src={image} height={"100px"} width={"100px"}/></MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      );
+      if (this.props.args["no_choice"] === true) {
+        return (
+          <Box sx={{minHeight: 200, marginTop: 2}}>
+            <FormControl fullWidth>
+              <Select
+                labelId="image-select-label"
+                id="image-select"
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+                {this.state.back.map(({ image, option }) => (
+                  <MenuItem sx={{justifyContent: "flex-end"}} value={option}><img alt={option} src={image} height={"100px"} width={"100px"}/></MenuItem>
+                ))}
+                <MenuItem
+                  value={".nothing"}
+                  key={".no_choice"}
+                  sx={{ paddingLeft: 0, maxHeight: 150, maxWidth: 150 }}
+                >
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        );
+      } else {
+        return (
+          <Box sx={{minHeight: 200, marginTop: 2}}>
+            <FormControl fullWidth>
+              <Select
+                labelId="image-select-label"
+                id="image-select"
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+                {this.state.back.map(({ image, option }) => (
+                  <MenuItem sx={{justifyContent: "flex-end"}} value={option}><img alt={option} src={image} height={"100px"} width={"100px"}/></MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        );
+      }
     }
   }
 
