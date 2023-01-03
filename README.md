@@ -4,7 +4,7 @@
 
 Clone project or pip install the package :
 
-```pip install streamlit-streamlit-select-image```
+```pip install streamlit_select_image```
 
 ## Example
 
